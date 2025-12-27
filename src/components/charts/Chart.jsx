@@ -11,7 +11,7 @@ import {
 const Chart = ({ title, data, lineInfo, grid }) => {
   return (
     <div className="w-full">
-      <div className="shadow-custom px-4 m-12">
+      <div className="shadow-custom px-4 m-5">
         <span className="font-semibold">{title}</span>
         <div className="w-full h-64 mt-2">
           <ResponsiveContainer width="100%">

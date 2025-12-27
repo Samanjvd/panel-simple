@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Chart from "../../components/charts/chart";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +11,7 @@ function Product() {
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log(product);
   useEffect(() => {
     if (!id) return;
 
@@ -43,7 +44,7 @@ function Product() {
           ),
         ]);
 
-        setProduct(productRes.data || null);
+        setProduct(productRes.data[0] || null);
 
         const chartReadyData = salesRes.data.map((item) => ({
           name: item.month,
@@ -90,15 +91,42 @@ function Product() {
           <div className="size-6 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div>
-          <div>
+        <div className="flex">
+          <div className="flex-[2]">
             <Chart
               title="sales in month"
               data={chartData}
               lineInfo={lineInfo}
             />
           </div>
-          <div></div>
+          <div className="flex-[1] shadow-custom my-4">
+            <div className="flex items-center gap-3">
+              <img
+                src={product.avatar}
+                alt="img"
+                className="rounded-full object-cover size-10"
+              />
+              <span>{product.title}</span>
+            </div>
+            <div className="">
+              <div className="flex justify-between">
+                <span>Price:</span>
+                <span>{product.price}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sales:</span>
+                <span>{product.sales}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Active:</span>
+                <span>{product.active ? "yes" : "no"}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>In-Stock:</span>
+                <span>{product.in_stock ? "yes" : "no"}</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
